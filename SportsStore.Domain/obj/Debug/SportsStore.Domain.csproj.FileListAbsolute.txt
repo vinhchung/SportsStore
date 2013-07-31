@@ -1,0 +1,5 @@
+c:\Projects\MVC4\SportsStore\SportsStore.Domain\bin\Debug\SportsStore.Domain.dll
+c:\Projects\MVC4\SportsStore\SportsStore.Domain\bin\Debug\SportsStore.Domain.pdb
+c:\Projects\MVC4\SportsStore\SportsStore.Domain\obj\Debug\SportsStore.Domain.csprojResolveAssemblyReference.cache
+c:\Projects\MVC4\SportsStore\SportsStore.Domain\obj\Debug\SportsStore.Domain.dll
+c:\Projects\MVC4\SportsStore\SportsStore.Domain\obj\Debug\SportsStore.Domain.pdb
