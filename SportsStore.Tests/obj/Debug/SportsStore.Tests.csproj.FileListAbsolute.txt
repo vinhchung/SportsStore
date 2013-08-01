@@ -38,3 +38,5 @@ c:\Projects\MVC4\SportsStore\SportsStore.Tests\obj\Debug\SportsStore.Tests.pdb
 c:\Projects\MVC4\SportsStore\SportsStore.Tests\bin\Debug\Moq.dll
 c:\Projects\MVC4\SportsStore\SportsStore.Tests\bin\Debug\Moq.pdb
 c:\Projects\MVC4\SportsStore\SportsStore.Tests\bin\Debug\Moq.xml
+c:\Projects\MVC4\SportsStore\SportsStore.Tests\bin\Debug\EntityFramework.dll
+c:\Projects\MVC4\SportsStore\SportsStore.Tests\bin\Debug\EntityFramework.xml
