@@ -15,26 +15,26 @@ namespace SportsStore.Tests
     [TestClass]
     public class UnitTest1
     {
-        private ProductController SetupController(int pageSize)
+        private ProductsListViewModel GetViewModel(int pageSize, int currentPage, string category)
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns(new Product[] {
-                new Product {ProductId=1, Name="P1"},
-                new Product {ProductId=2, Name="P2"},
-                new Product {ProductId=2, Name="P3"},
-                new Product {ProductId=2, Name="P4"},
-                new Product {ProductId=2, Name="P5"}
+                new Product {ProductId=1, Name="P1", Category="Cat1"},
+                new Product {ProductId=2, Name="P2", Category="Cat2"},
+                new Product {ProductId=2, Name="P3", Category="Cat1"},
+                new Product {ProductId=2, Name="P4", Category="Cat1"},
+                new Product {ProductId=2, Name="P5", Category="Cat2"}
             }.AsQueryable());
             var controller = new ProductController(mock.Object);
             controller.PageSize = pageSize;
-            return controller;   
+            return (ProductsListViewModel)controller.List(category, currentPage).Model;   
         }
 
         [TestMethod]
         public void Can_Paginate()
         {
-            var controller = SetupController(3);
-            ProductsListViewModel result = (ProductsListViewModel)controller.List(2).Model;
+            int pageSize = 3, currentPage = 2;
+            ProductsListViewModel result = GetViewModel(pageSize, currentPage, null);
             Product[] prodArray = result.Products.ToArray();
             Assert.IsTrue(prodArray.Length == 2);
             Assert.AreEqual("P4", prodArray[0].Name);
@@ -44,8 +44,8 @@ namespace SportsStore.Tests
         [TestMethod]
         public void Can_Send_Pagination_View_Model()
         {
-            var controller = SetupController(3);
-            ProductsListViewModel result = (ProductsListViewModel)controller.List(2).Model;
+            int pageSize = 3, currentPage = 2;
+            ProductsListViewModel result = GetViewModel(pageSize, currentPage, null);
             PageInfo pageInfo = result.PageInfo;
             Assert.AreEqual(2, pageInfo.CurrentPage);
             Assert.AreEqual(3, pageInfo.ItemsPerPage);
@@ -54,10 +54,22 @@ namespace SportsStore.Tests
         }
 
         [TestMethod]
+        public void Can_Filter_Products_By_Category()
+        {
+            int pageSize = 3, currentPage = 1;
+            ProductsListViewModel result = GetViewModel(pageSize, currentPage, "Cat1");
+            Product[] prodArray = result.Products.ToArray();
+            PageInfo pageInfo = result.PageInfo;
+            Assert.AreEqual(3, pageInfo.TotalItems);
+            Assert.IsTrue("Cat1"==prodArray[0].Category && "P1" == prodArray[0].Name);
+            Assert.IsTrue("Cat1"==prodArray[1].Category && "P3" == prodArray[1].Name);
+            Assert.IsTrue("Cat1"==prodArray[2].Category && "P4" == prodArray[2].Name);
+        }
+
+        [TestMethod]
         public void PageLinks_Generation_Display()
         {
             HtmlHelper myHelper = null;
-
             PageInfo pageInfo = new PageInfo { CurrentPage = 2, ItemsPerPage = 10, TotalItems = 28 };
             Func<int, string> pageUrlDelegate = i => "Page" + i;
             MvcHtmlString result = myHelper.PageLinks(pageInfo, pageUrlDelegate);
