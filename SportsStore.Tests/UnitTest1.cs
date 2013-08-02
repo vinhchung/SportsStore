@@ -15,7 +15,7 @@ namespace SportsStore.Tests
     [TestClass]
     public class UnitTest1
     {
-        private ProductsListViewModel GetViewModel(int pageSize, int currentPage, string category)
+        private ProductsListViewModel GetProductViewModel(int pageSize, int currentPage, string category)
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns(new Product[] {
@@ -34,7 +34,7 @@ namespace SportsStore.Tests
         public void Can_Paginate()
         {
             int pageSize = 3, currentPage = 2;
-            ProductsListViewModel result = GetViewModel(pageSize, currentPage, null);
+            ProductsListViewModel result = GetProductViewModel(pageSize, currentPage, null);
             Product[] prodArray = result.Products.ToArray();
             Assert.IsTrue(prodArray.Length == 2);
             Assert.AreEqual("P4", prodArray[0].Name);
@@ -45,7 +45,7 @@ namespace SportsStore.Tests
         public void Can_Send_Pagination_View_Model()
         {
             int pageSize = 3, currentPage = 2;
-            ProductsListViewModel result = GetViewModel(pageSize, currentPage, null);
+            ProductsListViewModel result = GetProductViewModel(pageSize, currentPage, null);
             PageInfo pageInfo = result.PageInfo;
             Assert.AreEqual(2, pageInfo.CurrentPage);
             Assert.AreEqual(3, pageInfo.ItemsPerPage);
@@ -57,7 +57,7 @@ namespace SportsStore.Tests
         public void Can_Filter_Products_By_Category()
         {
             int pageSize = 3, currentPage = 1;
-            ProductsListViewModel result = GetViewModel(pageSize, currentPage, "Cat1");
+            ProductsListViewModel result = GetProductViewModel(pageSize, currentPage, "Cat1");
             Product[] prodArray = result.Products.ToArray();
             PageInfo pageInfo = result.PageInfo;
             Assert.AreEqual(3, pageInfo.TotalItems);
@@ -74,6 +74,43 @@ namespace SportsStore.Tests
             Func<int, string> pageUrlDelegate = i => "Page" + i;
             MvcHtmlString result = myHelper.PageLinks(pageInfo, pageUrlDelegate);
             Assert.AreEqual(@"<a href=""Page1"">1</a><a class=""selected"" href=""Page2"">2</a><a href=""Page3"">3</a>", result.ToString());
+        }
+
+        [TestMethod]
+        public void Menu_GetCategories_Display()
+        {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(p => p.Products).Returns(
+                new Product [] {
+                   new Product {ProductId=1, Name="P1", Category="Cat1"},
+                new Product {ProductId=2, Name="P2", Category="Cat2"},
+                new Product {ProductId=2, Name="P3", Category="Cat1"},
+                new Product {ProductId=2, Name="P4", Category="Cat1"},
+                new Product {ProductId=2, Name="P5", Category="Cat2"}
+            }.AsQueryable());
+
+            NavController controller = new NavController(mock.Object);
+            string[] result = ((IEnumerable<string>)controller.Menu().Model).ToArray();
+            Assert.AreEqual("Cat1", result[0]);
+            Assert.AreEqual("Cat2", result[1]);
+        }
+
+        [TestMethod]
+        public void Menu_SelectedCategory_Display()
+        {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(p => p.Products).Returns(
+                new Product[] {
+                   new Product {ProductId=1, Name="P1", Category="Cat1"},
+                new Product {ProductId=2, Name="P2", Category="Cat2"},
+                new Product {ProductId=2, Name="P3", Category="Cat1"},
+                new Product {ProductId=2, Name="P4", Category="Cat1"},
+                new Product {ProductId=2, Name="P5", Category="Cat2"}
+            }.AsQueryable());
+
+            string selectedCategory = "Cat2";
+            NavController controller = new NavController(mock.Object);
+            Assert.AreEqual("Cat2", (string)controller.Menu(selectedCategory).ViewBag.SelectedCategory);
         }
     }
 }

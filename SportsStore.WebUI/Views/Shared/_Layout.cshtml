@@ -9,10 +9,11 @@
 </head>
 <body>
     <header>
+        @{Html.RenderAction("Summary", "Cart");}
         <div class="title">Sports store</div>
     </header>
     <nav id="categories">
-
+        @{Html.RenderAction("Menu", "Nav");}
     </nav>
     <div id="content">
         @RenderBody()

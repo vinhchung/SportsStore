@@ -1,0 +1,31 @@
+﻿@model SportsStore.WebUI.Models.CartIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Your cart</h2>
+<table width="90%" align="center">
+    <thead><tr><td style="text-align:center">Quanity</td><td style="text-align:left">Item</td><td style="text-align:right">Price</td><td style="text-align:right">Subtotal</td></tr></thead>
+    <tbody>
+        @foreach (var c in @Model.Cart.Lines)
+        {
+            <tr><td style="text-align:center">@c.Quantity</td>
+                <td style="text-align:left">@c.Product.Name</td>
+                <td style="text-align:right">@c.Product.Price.ToString("c")</td>
+                <td style="text-align:right">@((c.Quantity*c.Product.Price).ToString("c"))</td>
+                <td style="text-align:right">
+                    @using (Html.BeginForm("RemoveItem", "Cart")) { 
+                       @Html.Hidden("ProductId", c.Product.ProductId)
+                       @Html.HiddenFor(x=>x.ReturnUrl)
+                       <input type="submit" class="actionButtons" value="Remove" />           
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr><td colspan="4" style="text-align:center">Total:</td><td style="text-align:right">@Model.Cart.ComputeTotalValue().ToString("c")</td></tr>
+    </tfoot>
+</table>
+<p style="text-align:center" class="actionButtons"><a href="@Model.ReturnUrl">Continue Shopping</a></p>
