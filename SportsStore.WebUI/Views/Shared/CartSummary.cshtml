@@ -6,5 +6,5 @@
         @Model.Lines.Sum(x => x.Quantity) item(s),
         @Model.ComputeTotalValue().ToString("c")
     </span>
-    @Html.ActionLink("Checkout", "Index", "Cart", new {returnUrl = Request.Url.PathAndQuery}, null)
+    @Html.ActionLink("Checkout now", "Checkout", "Cart", new {returnUrl = Request.Url.PathAndQuery}, null)
 </div>

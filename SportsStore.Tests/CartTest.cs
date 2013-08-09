@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
+using SportsStore.WebUI.Controllers;
 
 namespace SportsStore.Tests
 {
@@ -76,6 +78,38 @@ namespace SportsStore.Tests
             cart.AddItem(p2, 1);
             decimal total = cart.ComputeTotalValue();
             Assert.AreEqual(40m, total);
+        }
+
+        [TestMethod]
+        public void CartController_AddItem_Added()
+        {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(p => p.Products).Returns(new Product[] {
+                new Product {Name="P1", Category="Cat1", ProductId=1, Price=10m},
+                new Product {Name="P2", Category="Cat2", ProductId=2, Price=10m}
+            }.AsQueryable());
+            Cart cart = new Cart();
+            CartController controller = new CartController(mock.Object, null);
+            var result = controller.AddItem(cart, 1, "/cart/index");
+            CartLine [] lines = cart.Lines.ToArray();
+            Assert.AreEqual("P1", lines[0].Product.Name);
+        }
+
+        [TestMethod]
+        public void CartContoller_RemoveItem_Added()
+        {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(p => p.Products).Returns(new Product[] {
+                new Product {Name="P1", ProductId=1},
+                new Product {Name="P2", ProductId=2}
+            }.AsQueryable());
+
+            Cart cart = new Cart();
+            CartController controller = new CartController(mock.Object, null);
+            controller.AddItem(cart, 1, null);
+            controller.AddItem(cart, 2, null);
+            controller.RemoveItem(cart, 1, null);
+            Assert.IsTrue(cart.Lines.Count() == 1);
         }
     }
 }

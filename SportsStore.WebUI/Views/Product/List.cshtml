@@ -5,12 +5,10 @@
 }
 
 <h1>Products</h1>
-@foreach (var p in @Model.Products)
+@foreach (var p in Model.Products)
 {
     Html.RenderPartial("ProductSummary", p);
 }
 <div class="pager">
     @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new { page = x, category=Model.CurrentCategory }))
 </div>
-
-

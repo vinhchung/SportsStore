@@ -20,12 +20,13 @@ namespace SportsStore.WebUI
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new CustomPathViewEngine());
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+            DependencyResolver.SetResolver(new NinjectDependencyResolver());
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }
