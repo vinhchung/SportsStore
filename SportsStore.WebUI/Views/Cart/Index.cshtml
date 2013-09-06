@@ -12,11 +12,11 @@
         {
             <tr><td style="text-align:center">@c.Quantity</td>
                 <td style="text-align:left">@c.Product.ProductName</td>
-                <td style="text-align:right">@c.Product.UnitPrice.ToString("c")</td>
-                <td style="text-align:right">@((c.Quantity*c.Product.UnitPrice).ToString("c"))</td>
+                <td style="text-align:right">@c.Product.UnitPrice.Value.ToString("c")</td>
+                <td style="text-align:right">@((c.Quantity*c.Product.UnitPrice.Value).ToString("c"))</td>
                 <td style="text-align:right">
                     @using (Html.BeginForm("RemoveItem", "Cart")) { 
-                       @Html.Hidden("ProductId", c.Product.ProductId)
+                       @Html.Hidden("ProductId", c.Product.ProductID)
                        @Html.HiddenFor(x=>x.ReturnUrl)
                        <input type="submit" class="actionButtons" value="Remove" />           
                     }

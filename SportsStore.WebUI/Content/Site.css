@@ -80,14 +80,14 @@ header .title
 #content
 {
     border-left: 2px solid gray;
-    margin-left: 9em;
+    margin-left: 10em;
     padding: 1em;
 }
 
 #categories
 {
     float: left;
-    width: 8em;
+    width: 9em;
     padding: .3em;
 }
 
