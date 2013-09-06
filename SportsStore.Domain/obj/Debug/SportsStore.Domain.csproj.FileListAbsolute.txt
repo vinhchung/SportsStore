@@ -6,3 +6,11 @@ c:\Projects\MVC4\SportsStore\SportsStore.Domain\obj\Debug\SportsStore.Domain.pdb
 c:\Projects\MVC4\SportsStore\SportsStore.Domain\bin\Debug\SportsStore.Domain.dll.config
 c:\Projects\MVC4\SportsStore\SportsStore.Domain\bin\Debug\EntityFramework.dll
 c:\Projects\MVC4\SportsStore\SportsStore.Domain\bin\Debug\EntityFramework.xml
+C:\Users\chungv\Documents\Projects\SportsStore\SportsStore.Domain\bin\Debug\SportsStore.Domain.dll.config
+C:\Users\chungv\Documents\Projects\SportsStore\SportsStore.Domain\bin\Debug\SportsStore.Domain.dll
+C:\Users\chungv\Documents\Projects\SportsStore\SportsStore.Domain\bin\Debug\SportsStore.Domain.pdb
+C:\Users\chungv\Documents\Projects\SportsStore\SportsStore.Domain\bin\Debug\EntityFramework.dll
+C:\Users\chungv\Documents\Projects\SportsStore\SportsStore.Domain\bin\Debug\EntityFramework.xml
+C:\Users\chungv\Documents\Projects\SportsStore\SportsStore.Domain\obj\Debug\SportsStore.Domain.csprojResolveAssemblyReference.cache
+C:\Users\chungv\Documents\Projects\SportsStore\SportsStore.Domain\obj\Debug\SportsStore.Domain.dll
+C:\Users\chungv\Documents\Projects\SportsStore\SportsStore.Domain\obj\Debug\SportsStore.Domain.pdb

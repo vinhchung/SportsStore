@@ -12,7 +12,7 @@ namespace SportsStore.Domain.Entities
 
         public void AddItem(Product product, int quantity)
         {
-            CartLine line = _lineCollection.Where(c => c.Product.ProductId == product.ProductId).FirstOrDefault();
+            CartLine line = _lineCollection.Where(c => c.Product.ProductID == product.ProductID).FirstOrDefault();
             if (line == null)
             {
                 _lineCollection.Add(new CartLine { Product = product, Quantity = quantity });
@@ -25,12 +25,12 @@ namespace SportsStore.Domain.Entities
 
         public void RemoveLine(int productId)
         {
-            _lineCollection.RemoveAll(l => l.Product.ProductId == productId);
+            _lineCollection.RemoveAll(l => l.Product.ProductID == productId);
         }
 
         public decimal ComputeTotalValue()
         {
-            return _lineCollection.Sum(l => l.Product.Price * l.Quantity);
+            return _lineCollection.Sum(l => l.Product.UnitPrice.Value * l.Quantity);
         }
 
         public void Clear()

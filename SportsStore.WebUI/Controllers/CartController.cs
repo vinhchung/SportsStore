@@ -27,7 +27,7 @@ namespace SportsStore.WebUI.Controllers
 
         public RedirectToRouteResult AddItem(Cart cart, int productId, string returnUrl)
         {
-            Product prod = _productRepo.Products.Where(p => p.ProductId == productId).FirstOrDefault();
+            Product prod = _productRepo.Products.Where(p => p.ProductID == productId).FirstOrDefault();
             if (prod != null)
             {
                 cart.AddItem(prod, 1);

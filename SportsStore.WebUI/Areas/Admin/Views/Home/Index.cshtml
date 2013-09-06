@@ -16,7 +16,7 @@
             ID
         </th>
         <th>
-            Name
+            ProductName
         </th>
         <th class="NumericCol">
             Price
@@ -30,10 +30,10 @@
             @Html.DisplayFor(modelItem => item.ProductId)
         </td>
         <td>
-            @Html.ActionLink(item.Name, "Edit", new { id = item.ProductId })
+            @Html.ActionLink(item.ProductName, "Edit", new { id = item.ProductId })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Price)
+            @Html.DisplayFor(modelItem => item.UnitPrice)
         </td>
         <td>
             @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new { @class = "actionButtons" })

@@ -11,9 +11,9 @@
         @foreach (var c in @Model.Cart.Lines)
         {
             <tr><td style="text-align:center">@c.Quantity</td>
-                <td style="text-align:left">@c.Product.Name</td>
-                <td style="text-align:right">@c.Product.Price.ToString("c")</td>
-                <td style="text-align:right">@((c.Quantity*c.Product.Price).ToString("c"))</td>
+                <td style="text-align:left">@c.Product.ProductName</td>
+                <td style="text-align:right">@c.Product.UnitPrice.ToString("c")</td>
+                <td style="text-align:right">@((c.Quantity*c.Product.UnitPrice).ToString("c"))</td>
                 <td style="text-align:right">
                     @using (Html.BeginForm("RemoveItem", "Cart")) { 
                        @Html.Hidden("ProductId", c.Product.ProductId)

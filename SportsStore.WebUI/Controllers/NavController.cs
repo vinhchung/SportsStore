@@ -16,10 +16,10 @@ namespace SportsStore.WebUI.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult Menu(string category = null)
+        public PartialViewResult Menu(string category= null)
         {
             ViewBag.SelectedCategory = category;
-            IEnumerable<string> categories = _productRepository.Products.Select(x => x.Category).Distinct().OrderBy(x=>x);
+            IEnumerable<string> categories = _productRepository.Categories.Select(x => x.CategoryName.Replace("/"," ")).Distinct().OrderBy(x=>x);
             return PartialView(categories);
         }
 

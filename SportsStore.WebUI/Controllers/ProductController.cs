@@ -22,7 +22,7 @@ namespace SportsStore.WebUI.Controllers
         {
             var pageInfo = new PageInfo { 
                 CurrentPage = page, 
-                TotalItems = category==null ? _repository.Products.Count() : _repository.Products.Where(p => p.Category == category).Count(), 
+                TotalItems = category==null? _repository.Products.Count() : _repository.Products.Where(p => p.Category.CategoryName == category).Count(), 
                 ItemsPerPage = PageSize 
             };
             if (page < 1 || page > pageInfo.TotalPages)
@@ -30,7 +30,7 @@ namespace SportsStore.WebUI.Controllers
                 pageInfo.CurrentPage = 1;
             }
             ProductsListViewModel viewModel = new ProductsListViewModel {
-                Products = _repository.Products.Where(p => category==null || p.Category==category).OrderBy(p => p.ProductId).Skip((pageInfo.CurrentPage - 1) * PageSize).Take(PageSize),
+                Products = _repository.Products.Where(p => category==null || p.Category.CategoryName.Replace("/"," ")==category).OrderBy(p => p.ProductID).Skip((pageInfo.CurrentPage - 1) * PageSize).Take(PageSize),
                 PageInfo = pageInfo,
                 CurrentCategory = category
             };
